@@ -2,8 +2,7 @@
     "name": "dirigentas/bankas_2",
     "autoload": {
         "psr-4": {
-            "Dirigentas\\Bankas2\\": "src/",
-            "": ""
+            "Bankas_2\\": "app/"
         }
     },
     "authors": [
