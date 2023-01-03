@@ -1,0 +1,16 @@
+{
+    "name": "dirigentas/bankas_2",
+    "autoload": {
+        "psr-4": {
+            "Dirigentas\\Bankas2\\": "src/",
+            "": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Aras",
+            "email": "Dirigentas@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
