@@ -59,7 +59,7 @@ class FileReader implements DataBase {
     public function show(int $userId) : array
     {
         foreach ($this->data as $data) {
-            if ($userId == $data['id']) {
+            if ($userId == $data['ID']) {
                 return $data;
             }
         }

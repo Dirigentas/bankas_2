@@ -21,6 +21,26 @@ class App
             return (new Iban)->index();
         }
 
+        if ($url[0] == 'new_iban' && count($url) == 1 && $method == 'GET') {
+            return (new Iban)->create();
+        }
+        
+        if ($url[0] == 'new_iban' && $url[1] == 'save' && count($url) == 2 && $method == 'POST') {
+            return (new Iban)->save();
+        }
+
+        if ($url[0] == 'iban_list' && $url[1] == 'edit_add' && count($url) == 3 && $method == 'GET') {
+            return (new Iban)->edit_add($url[2]);
+        }
+
+        if ($url[0] == 'iban_list' && $url[1] == 'edit_withdraw' && count($url) == 3 && $method == 'GET') {
+            return (new Iban)->edit_withdraw($url[2]);
+        }
+
+        if ($url[0] == 'iban_list' && $url[1] == 'update' && count($url) == 3 && $method == 'POST') {
+            return (new Iban)->update($url[2]);
+        }
+
         return '404 NOT FOUND';
     }
 
@@ -31,12 +51,20 @@ class App
         extract($data);
 
         require __DIR__ . '/../view/header.php';
-
+        
         require __DIR__ . '/../view/' . $__name . '.php';
+        
+        require __DIR__ . '/../view/footer.php';
 
         $out = ob_get_contents();
         ob_end_clean();
 
         return $out;
+    }
+
+    public static function redirect($url)
+    {
+        header('Location: ' . URL . $url);
+        return null;
     }
 }

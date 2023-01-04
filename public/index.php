@@ -1,7 +1,7 @@
 <?php
 // šis failas atitinka REQ
 
-// define('URL', 'http://bankas_2.lt/');
+define('URL', 'http://bankas_2.lt/');
 
 use Bankas_2\App;
 
