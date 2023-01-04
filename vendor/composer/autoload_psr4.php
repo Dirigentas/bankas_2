@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Bankas_2\\' => array($baseDir . '/app'),
+    'App\\DB\\' => array($baseDir . '/app'),
 );

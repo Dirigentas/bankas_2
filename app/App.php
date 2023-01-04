@@ -2,7 +2,7 @@
 
 namespace Bankas_2;
 
-use Bankas_2\Controllers\Calculator;
+use Bankas_2\Controllers\Iban;
 
 class App
 {
@@ -17,24 +17,24 @@ class App
     {
         $method = $_SERVER['REQUEST_METHOD'];
 
-        if ($url[0] == 'calculator' && in_array($url[1], ['sum', 'diff', 'mult', 'div']) && count($url) == 4) {
-            return (new Calculator)->{$url[1]}($url[2], $url[3]);
+        if ($url[0] == 'iban_list' && count($url) == 1 && $method == 'GET') {
+            return (new Iban)->index();
         }
 
         return '404 NOT FOUND';
     }
 
-    public static function view(string $__name, array $data)
-    {
-        ob_start();
+    // public static function view(string $__name, array $data)
+    // {
+    //     ob_start();
 
-        extract($data);
+    //     extract($data);
 
-        require __DIR__ . '/../view/' . $__name . '.php';
+    //     require __DIR__ . '/../view/' . $__name . '.php';
 
-        $out = ob_get_contents();
-        ob_end_clean();
+    //     $out = ob_get_contents();
+    //     ob_end_clean();
 
-        return $out;
-    }
+    //     return $out;
+    // }
 }

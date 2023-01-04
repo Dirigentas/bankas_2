@@ -1,5 +1,5 @@
 <?php
-namespace Front\DB;
+namespace Bankas_2\DB;
 
 use App\DB\DataBase;
 
@@ -15,26 +15,26 @@ class FileReader implements DataBase {
             $this->data = [];
         } 
         else {
-            $this->data = unserialize(file_get_contents(__DIR__ . '/' . $this->name));
+            $this->data = json_decode(file_get_contents(__DIR__ . '/' . $this->name), 1);
         }
     }
 
     public function __destruct()
     {
-        file_put_contents(__DIR__ . '/' . $this->name, serialize($this->data));
+        file_put_contents(__DIR__ . '/' . $this->name, json_encode($this->data));
     }
 
 
     private function getId() : int
     {
         if (!file_exists(__DIR__ . '/' . $this->name .'_id')) {
-            file_put_contents(__DIR__ . '/' . $this->name .'_id', serialize(1));
+            file_put_contents(__DIR__ . '/' . $this->name .'_id', json_encode(1));
             return 1;
         } 
         else {
-            $id = unserialize(file_get_contents(__DIR__ . '/' . $this->name .'_id'));
+            $id = json_decode(file_get_contents(__DIR__ . '/' . $this->name .'_id'), 1);
             $id++;
-            file_put_contents(__DIR__ . '/' . $this->name .'_id', serialize($id));
+            file_put_contents(__DIR__ . '/' . $this->name .'_id', json_encode($id));
             return $id;
         }
     }
