@@ -7,5 +7,4 @@ require __DIR__ . '/../vendor/autoload.php';
 
 
 $response = App::start();
-echo '<pre>';
-print_r($response);
+echo $response;

@@ -24,17 +24,17 @@ class App
         return '404 NOT FOUND';
     }
 
-    // public static function view(string $__name, array $data)
-    // {
-    //     ob_start();
+    public static function view(string $__name, array $data)
+    {
+        ob_start();
 
-    //     extract($data);
+        extract($data);
 
-    //     require __DIR__ . '/../view/' . $__name . '.php';
+        require __DIR__ . '/../view/' . $__name . '.php';
 
-    //     $out = ob_get_contents();
-    //     ob_end_clean();
+        $out = ob_get_contents();
+        ob_end_clean();
 
-    //     return $out;
-    // }
+        return $out;
+    }
 }

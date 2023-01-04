@@ -13,7 +13,6 @@
 </body>
 
 </html>
-
-<h1 style="color: crimson;">
-    <?= $result ?>
-</h1>
+<?php foreach ($ibans as $iban) : ?>
+    <h6><?= $iban['asmens_kodas'] ?></h6>
+<?php endforeach ?>

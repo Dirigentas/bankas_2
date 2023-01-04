@@ -11,17 +11,11 @@ class Iban
     {
         $ibans = (new FR('ibans'))->showAll();
         $pageTitle = 'Sąskaitų Sąrašas';
-        // return App::view('grybas-list', compact('grybai', 'pageTitle'));
-        return $ibans;
+
+        // return App::view('iban-list', ['ibans' => $ibans, $pageTitle => $pageTitle]);
+        
+        return App::view('iban-list', compact('ibans', 'pageTitle'));
     }
 
 
-    // public function sum($a, $b)
-    // {
-    //     $result = $a + $b;
-    //     $pageTitle = 'Calculator | SUM';
-
-    //     // return App::view('calculator', ['result' => $result]);
-    //     return App::view('calculator', compact('result', 'pageTitle'));
-    // }
 }
