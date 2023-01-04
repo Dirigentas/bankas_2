@@ -2,9 +2,11 @@
 
 namespace Bankas_2;
 
+use Bankas_2\Controllers\Calculator;
+
 class App
 {
-    public static function start(): void
+    public static function start()
     {
         $url = explode('/', $_SERVER['REQUEST_URI']);
         array_shift($url);
@@ -28,12 +30,7 @@ class App
 
         extract($data);
 
-        require __DIR__ . '/../view/top.php';
-
         require __DIR__ . '/../view/' . $__name . '.php';
-
-        require __DIR__ . '/../view/bottom.php';
-
 
         $out = ob_get_contents();
         ob_end_clean();
