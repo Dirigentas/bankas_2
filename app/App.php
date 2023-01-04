@@ -30,6 +30,8 @@ class App
 
         extract($data);
 
+        require __DIR__ . '/../view/header.php';
+
         require __DIR__ . '/../view/' . $__name . '.php';
 
         $out = ob_get_contents();

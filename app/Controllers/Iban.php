@@ -11,9 +11,7 @@ class Iban
     {
         $ibans = (new FR('ibans'))->showAll();
         $pageTitle = 'Sąskaitų Sąrašas';
-
-        // return App::view('iban-list', ['ibans' => $ibans, $pageTitle => $pageTitle]);
-        
+                
         return App::view('iban-list', compact('ibans', 'pageTitle'));
     }
 
