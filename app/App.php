@@ -37,8 +37,8 @@ class App
             return (new Iban)->edit_withdraw($url[2]);
         }
 
-        if ($url[0] == 'iban_list' && $url[1] == 'update' && count($url) == 3 && $method == 'POST') {
-            return (new Iban)->update($url[2]);
+        if ($url[0] == 'iban_list' && $url[1] == 'update' && count($url) == 4 && $method == 'POST') {
+            return (new Iban)->update($url[3], $url[2]);
         }
 
         return '404 NOT FOUND'. $_SERVER['REQUEST_METHOD'];

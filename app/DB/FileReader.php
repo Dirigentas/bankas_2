@@ -45,12 +45,14 @@ class FileReader implements DataBase {
         $this->data[] = $userData;
     }
 
-    public function update(int $userId, array $userData) : void
+    public function update(int $userId, string $type, array $userData) : void
     {
         $userData['ID'] = $userId;
         foreach ($this->data as $key => $single){
             if ($userId == $single['ID']) {
-                (float) $this->data[$key]['likutis'] += (float) $userData['pokytis'];
+                $type == 'add' ?
+                (float) $this->data[$key]['likutis'] += (float) $userData['pokytis'] :
+                (float) $this->data[$key]['likutis'] -= (float) $userData['pokytis'];
             }
         }
 

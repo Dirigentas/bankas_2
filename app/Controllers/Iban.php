@@ -18,10 +18,9 @@ class Iban
         public function create()
     {
         $pageTitle = 'Sukurti naują sąskaitą';
-        $hidden = rand(0, 99999);
         $randomIban = 'LT'. rand(10, 99) . ' 7044 0' . rand(100, 999) . ' ' . rand(1000, 9999) . ' ' . rand(1000, 9999);
 
-        return App::view('iban-create', compact('pageTitle', 'hidden', 'randomIban'));
+        return App::view('iban-create', compact('pageTitle', 'randomIban'));
     }
 
     public function save()
@@ -43,9 +42,9 @@ class Iban
         return App::view('edit_withdraw', compact('pageTitle', 'iban'));
     }
 
-    public function update($id)
+    public function update($id, $type)
     {
-        (new FR('ibans'))->update($id, $_POST);
+        (new FR('ibans'))->update($id, $type, $_POST);
         return App::redirect('iban_list/edit_add/'. $id);
     }
 
