@@ -37,26 +37,45 @@ class Iban
         return App::redirect('new_iban');
     }
 
-    public function edit_add($id)
+    public function edit_add($id, $result)
     {
         $pageTitle = 'Pridėti lėšas';
         $iban = (new FR('ibans'))->show($id);
-        return App::view('edit_add', compact('pageTitle', 'iban'));
+        $result = $result;
+        return App::view('edit_add', compact('pageTitle', 'iban', 'result'));
     }
-    public function edit_withdraw($id)
+    public function edit_withdraw($id, $result)
     {
         $pageTitle = 'Nusiimti lėšas';
         $iban = (new FR('ibans'))->show($id);
-        return App::view('edit_withdraw', compact('pageTitle', 'iban'));
+        $result = $result;
+        return App::view('edit_withdraw', compact('pageTitle', 'iban', 'result'));
     }
 
     public function update($id, $type)
     {
-        (new FR('ibans'))->update($id, $type, $_POST);
-        if ($type == 'add') {
-            return App::redirect('iban_list/edit_add/'. $id);
+        // echo $type;
+        // die;
+        $post = $_POST['pokytis'];
+        if ((float) $post > 0 && (float) $post * 1000 % 10 === 0) {
+            (new FR('ibans'))->update($id, $type, $_POST);
+            if ($type == 'add') {
+                return App::redirect('iban_list/edit_add/'. $id . '/success');
+            } else {
+                return App::redirect('iban_list/edit_withdraw/'. $id . '/success');
+            }
         } else {
-            return App::redirect('iban_list/edit_withdraw/'. $id);
+            // echo $type == 'add';
+            // die;
+            if ($type === 'add') {
+                echo 'taip';
+                die;
+                return App::redirect('iban_list/edit_add/'. $id . '/error');
+            } else {
+                echo 'ne';
+                // die;
+                return App::redirect('iban_list/edit_withdraw/'. $id . '/error');
+            }
         }
     }
 

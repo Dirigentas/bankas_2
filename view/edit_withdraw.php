@@ -21,3 +21,7 @@
         <button type="submit" class="btn btn-success">Nusiimti lėšas</button>
     </form>
 </div>
+
+<h6 <?= $result == 'success' ? 'class="alert alert-success" role="alert">Lėšos nuskaičiuotos sėkmingai' : '' ?></h6>
+<h6 <?= $result == 'error' ? 'class="alert alert-danger" role="alert">Nusiimama suma turi būti didesnė už 0 eur, formatas turi būti iki 2 skaičių po kablelio' : '' ?></h6>
+<h6 <?= $result == 'error2' ? 'class="alert alert-danger" role="alert">Sąskaitos likutis negali likti mažesnis už 0 eur' : '' ?></h6>
