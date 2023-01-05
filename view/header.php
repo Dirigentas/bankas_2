@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="<?= URL . 'style.css' ?>">
     <title> <?= $pageTitle ?></title>
 </head>
-<body>
+<body style="margin-bottom: 0">
     <body>
     <nav class="navbar navbar-expand-sm" style="background-color: deepskyblue; font-weight: bold">
         <div class="container-fluid">

@@ -7,7 +7,14 @@ use Bankas_2\DB\FileReader as FR;
 
 class Iban
 {
-        public function index()
+    public function home()
+    {
+        $pageTitle = 'Pagrindinis puslapis';
+
+        return App::view('home', compact('pageTitle'));
+    }
+
+    public function index()
     {
         $pageTitle = 'Sąskaitų Sąrašas';
         $ibans = (new FR('ibans'))->showAll();
@@ -15,7 +22,7 @@ class Iban
         return App::view('iban-list', compact('ibans', 'pageTitle'));
     }
 
-        public function create()
+    public function create()
     {
         $pageTitle = 'Sukurti naują sąskaitą';
         $randomIban = 'LT'. rand(10, 99) . ' 7044 0' . rand(100, 999) . ' ' . rand(1000, 9999) . ' ' . rand(1000, 9999);
@@ -45,7 +52,18 @@ class Iban
     public function update($id, $type)
     {
         (new FR('ibans'))->update($id, $type, $_POST);
-        return App::redirect('iban_list/edit_add/'. $id);
+        if ($type == 'add') {
+            return App::redirect('iban_list/edit_add/'. $id);
+        } else {
+            return App::redirect('iban_list/edit_withdraw/'. $id);
+        }
+    }
+
+    public function delete($id)
+    {
+        
+        (new FR('ibans'))->delete($id);
+        return App::redirect('iban_list');
     }
 
 }

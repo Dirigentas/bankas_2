@@ -9,7 +9,7 @@
                     <div class="col-12 col-sm-12 col-md-5 col-lg-2 col-xl-1"><?= number_format($iban['likutis'], 2, ',', ' ') ?></div>
                     <a class="col-12 col-sm-12 col-md-5 col-lg-2 col-xl-1" href="http://bankas_2.lt/iban_list/edit_add/<?= $iban['ID'] ?>">Pridėti lėšų</a>
                     <a class="col-12 col-sm-12 col-md-5 col-lg-2 col-xl-1" href="http://bankas_2.lt/iban_list/edit_withdraw/<?= $iban['ID'] ?>">Nuskaičiuoti lėšas</a>
-                    <form class="col-12 col-sm-12 col-md-5 col-lg-2 col-xl-1" action="http://localhost/bankas_1/php/iban_list.php" method="post">
+                    <form class="col-12 col-sm-12 col-md-5 col-lg-2 col-xl-1" action="http://bankas_2.lt/iban_list/delete/<?= $iban['ID'] ?>" method="post">
                         <input hidden name="ID" iban="<?= $iban['ID'] ?>">
                         <button type="submit" class="btn btn-success">Ištrinti</button>
                     </form>

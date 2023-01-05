@@ -17,6 +17,10 @@ class App
     {
         $method = $_SERVER['REQUEST_METHOD'];
 
+        if ($url[0] == '' && count($url) == 1 && $method == 'GET') {
+            return (new Iban)->home();
+        }
+
         if ($url[0] == 'iban_list' && count($url) == 1 && $method == 'GET') {
             return (new Iban)->index();
         }
@@ -41,7 +45,11 @@ class App
             return (new Iban)->update($url[3], $url[2]);
         }
 
-        return '404 NOT FOUND'. $_SERVER['REQUEST_METHOD'];
+        if ($url[0] == 'iban_list' && $url[1] == 'delete' && count($url) == 3 && $method == 'POST') {
+            return (new Iban)->delete($url[2]);
+        }
+
+        return '404 NOT FOUND '. $_SERVER['REQUEST_METHOD'];
     }
 
     public static function view(string $__name, array $data)
