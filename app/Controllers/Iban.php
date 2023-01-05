@@ -14,12 +14,13 @@ class Iban
         return App::view('home', compact('pageTitle'));
     }
 
-    public function index()
+    public function index($status)
     {
         $pageTitle = 'Sąskaitų Sąrašas';
         $ibans = (new FR('ibans'))->showAll();
+        $delete = $status;
 
-        return App::view('iban-list', compact('ibans', 'pageTitle'));
+        return App::view('iban-list', compact('ibans', 'pageTitle', 'delete'));
     }
 
     public function create()
@@ -61,9 +62,12 @@ class Iban
 
     public function delete($id)
     {
-        
-        (new FR('ibans'))->delete($id);
-        return App::redirect('iban_list');
+        if ((new FR('ibans'))->validate($id)) {
+            (new FR('ibans'))->delete($id);
+            return App::redirect('iban_list/success');
+        } else {
+            return App::redirect('iban_list/error');
+        }
     }
 
 }

@@ -76,8 +76,17 @@ class FileReader implements DataBase {
 
     public function showAll() : array
     {
+        usort($this->data, fn ($a, $b) => $a['pavarde'] <=> $b['pavarde']);
         return $this->data;
     }
 
+    public function validate(int $userId)
+    {
+        foreach ($this->data as $data) {
+            if ($userId == $data['ID']) {
+                return $data['likutis'] == 0;
+            }
+        }
+    }
 
 }

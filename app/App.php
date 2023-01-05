@@ -21,8 +21,13 @@ class App
             return (new Iban)->home();
         }
 
-        if ($url[0] == 'iban_list' && count($url) == 1 && $method == 'GET') {
-            return (new Iban)->index();
+        if ($url[0] == 'iban_list' && $method == 'GET') {
+            if (count($url) == 1) {
+                return (new Iban)->index($url[1] ?? null);
+            }
+            if (count($url) == 2 && $url[1] == 'success' || $url[1] == 'error') {
+                return (new Iban)->index($url[1] ?? null);
+            }
         }
 
         if ($url[0] == 'new_iban' && count($url) == 1 && $method == 'GET') {
