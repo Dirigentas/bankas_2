@@ -41,7 +41,7 @@ class App
             return (new Iban)->update($url[2]);
         }
 
-        return '404 NOT FOUND';
+        return '404 NOT FOUND'. $_SERVER['REQUEST_METHOD'];
     }
 
     public static function view(string $__name, array $data)

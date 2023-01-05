@@ -13,7 +13,7 @@
 </div>
 
 <div class="container row justify-content-center" style="margin-top: 100px;">
-    <form action="<?= URL ?>iban_list/update/<?= $iban['id'] ?>" method="post" class="m-4 col-12 col-sm-8 col-md-6">
+    <form action="<?= URL ?>iban_list/update/<?= $iban['ID'] ?>" method="post" class="m-4 col-12 col-sm-8 col-md-6">
         <div class="mb-3">
             <label class="form-label">Suma, eur</label>
             <input type="text" name="pokytis" class="form-control">

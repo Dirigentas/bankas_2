@@ -43,4 +43,10 @@ class Iban
         return App::view('edit_withdraw', compact('pageTitle', 'iban'));
     }
 
+    public function update($id)
+    {
+        (new FR('ibans'))->update($id, $_POST);
+        return App::redirect('iban_list/edit_add/'. $id);
+    }
+
 }

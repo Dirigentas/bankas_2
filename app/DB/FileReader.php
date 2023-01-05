@@ -41,19 +41,25 @@ class FileReader implements DataBase {
 
     public function create(array $userData) : void
     {
-        $userData['id'] = $this->getId();
+        $userData['ID'] = $this->getId();
         $this->data[] = $userData;
     }
 
     public function update(int $userId, array $userData) : void
     {
-        $userData['id'] = $userId;
-        $this->data = array_map(fn($data) => $userId == $data['id'] ? $userData : $data, $this->data);
+        $userData['ID'] = $userId;
+        foreach ($this->data as $key => $single){
+            if ($userId == $single['ID']) {
+                (float) $this->data[$key]['likutis'] += (float) $userData['pokytis'];
+            }
+        }
+
+
     }
 
     public function delete(int $userId) : void
     {
-        $this->data = array_filter($this->data, fn($data) => $userId != $data['id']);
+        $this->data = array_filter($this->data, fn($data) => $userId != $data['ID']);
     }
 
     public function show(int $userId) : array
