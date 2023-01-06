@@ -19,11 +19,15 @@ class App
         $method = $_SERVER['REQUEST_METHOD'];
 
         if ($url[0] == '' && count($url) == 1 && $method == 'GET') {
-            return (new Login)->login();
+            return (new Login)->login($url[0]);
         }
-        
+
         if ($url[0] == 'tryhome' && count($url) == 1 && $method == 'POST') {
                 return (new Login)->loginCheck();
+        }
+
+        if ($url[0] == 'error' && count($url) == 1 && $method == 'GET') {
+                return (new Login)->login($url[0]);
         }
 
         session_start();
@@ -38,8 +42,8 @@ class App
         }
 
 
-        if ($url[0] == 'home' && count($url) == 1 && $method == 'GET') {
-            return (new Login)->home();
+        if ($url[0] == 'home' && count($url) == 2 && $method == 'GET') {
+            return (new Login)->home($url[1]);
         }
 
         if ($url[0] == 'iban_list' && $method == 'GET') {
