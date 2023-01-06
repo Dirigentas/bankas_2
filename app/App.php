@@ -1,8 +1,9 @@
 <?php
 
-namespace Bankas_2;
+namespace Bankas_2;   
 
 use Bankas_2\Controllers\Iban;
+use Bankas_2\Controllers\Login;
 
 class App
 {
@@ -11,6 +12,12 @@ class App
         $url = explode('/', $_SERVER['REQUEST_URI']);
         array_shift($url);
         return self::router($url);
+
+        session_start();
+        if (!isset($_SESSION['user'])) {
+            $this->redirect(null);
+            die;
+        }
     }
 
     private static function router(array $url)
@@ -18,7 +25,19 @@ class App
         $method = $_SERVER['REQUEST_METHOD'];
 
         if ($url[0] == '' && count($url) == 1 && $method == 'GET') {
-            return (new Iban)->home();
+            return (new Login)->login();
+        }
+        
+        if ($url[0] == 'logout' && count($url) == 1 && $method == 'POST') {
+                return (new Login)->logout();
+        }
+
+        if ($url[0] == '' && count($url) == 1 && $method == 'POST') {
+                return (new Login)->loginCheck();
+        }
+
+        if ($url[0] == 'home' && count($url) == 1 && $method == 'POST') {
+            return (new Login)->home();
         }
 
         if ($url[0] == 'iban_list' && $method == 'GET') {
@@ -80,7 +99,11 @@ class App
 
         extract($data);
 
-        require __DIR__ . '/../view/header.php';
+        require __DIR__ . '/../view/meta.php';
+
+        if ($__name != 'login') {
+            require __DIR__ . '/../view/header.php';
+        }
         
         require __DIR__ . '/../view/' . $__name . '.php';
         

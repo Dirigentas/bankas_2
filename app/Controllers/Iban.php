@@ -7,13 +7,6 @@ use Bankas_2\DB\FileReader as FR;
 
 class Iban
 {
-    public function home()
-    {
-        $pageTitle = 'Pagrindinis puslapis';
-
-        return App::view('home', compact('pageTitle'));
-    }
-
     public function index($status)
     {
         $pageTitle = 'Sąskaitų Sąrašas';

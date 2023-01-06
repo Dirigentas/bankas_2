@@ -108,4 +108,14 @@ class FileReader implements DataBase {
             }
         }
     }
+
+    public function validateLogin(string $name) : bool
+    {
+        foreach ($this->data as $data) {
+            if ($name == $data['name']) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
