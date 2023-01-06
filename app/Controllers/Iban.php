@@ -54,8 +54,6 @@ class Iban
 
     public function update($id, $type)
     {
-        // echo $type;
-        // die;
         $post = $_POST['pokytis'];
         if ((float) $post > 0 && (float) $post * 1000 % 10 === 0) {
             (new FR('ibans'))->update($id, $type, $_POST);
@@ -65,15 +63,9 @@ class Iban
                 return App::redirect('iban_list/edit_withdraw/'. $id . '/success');
             }
         } else {
-            // echo $type == 'add';
-            // die;
             if ($type === 'add') {
-                echo 'taip';
-                die;
                 return App::redirect('iban_list/edit_add/'. $id . '/error');
             } else {
-                echo 'ne';
-                // die;
                 return App::redirect('iban_list/edit_withdraw/'. $id . '/error');
             }
         }

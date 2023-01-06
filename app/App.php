@@ -25,8 +25,10 @@ class App
             if (count($url) == 1) {
                 return (new Iban)->index($url[1] ?? null);
             }
-            if (count($url) == 2 && $url[1] == 'success' || $url[1] == 'error') {
-                return (new Iban)->index($url[1]);
+            if (count($url) == 2) {
+                if ($url[1] == 'success' || $url[1] == 'error') {
+                    return (new Iban)->index($url[1]);
+                }
             }
         }
 
@@ -38,8 +40,13 @@ class App
             return (new Iban)->save();
         }
 
-        if ($url[0] == 'iban_list' && $url[1] == 'edit_add' && count($url) == 3 || count($url) == 4 && $method == 'GET') {
-            return (new Iban)->edit_add($url[2], $url[3] ?? null);
+        if ($url[0] == 'iban_list' && $url[1] == 'edit_add' && $method == 'GET') {
+            if (count($url) == 3) {
+                return (new Iban)->edit_add($url[2], $url[3] ?? null);
+            }
+            if (count($url) == 4) {
+                return (new Iban)->edit_add($url[2], $url[3]);
+            }
         }
 
         if ($url[0] == 'iban_list' && $url[1] == 'edit_withdraw' && $method == 'GET') {
