@@ -1,6 +1,1 @@
-[
-    { "name": "Aras", "psw": "202cb962ac59075b964b07152d234b70" },
-    { "name": "Albis", "psw": "202cb962ac59075b964b07152d234b70" },
-    { "name": "Audrius", "psw": "202cb962ac59075b964b07152d234b70" },
-    { "name": "Marius", "psw": "202cb962ac59075b964b07152d234b70" }
-]
+[{"name":"Aras","psw":"202cb962ac59075b964b07152d234b70"},{"name":"Albis","psw":"202cb962ac59075b964b07152d234b70"},{"name":"Audrius","psw":"202cb962ac59075b964b07152d234b70"},{"name":"Marius","psw":"202cb962ac59075b964b07152d234b70"}]

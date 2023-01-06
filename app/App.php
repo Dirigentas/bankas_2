@@ -12,12 +12,6 @@ class App
         $url = explode('/', $_SERVER['REQUEST_URI']);
         array_shift($url);
         return self::router($url);
-
-        session_start();
-        if (!isset($_SESSION['user'])) {
-            $this->redirect(null);
-            die;
-        }
     }
 
     private static function router(array $url)
@@ -28,15 +22,23 @@ class App
             return (new Login)->login();
         }
         
+        if ($url[0] == 'tryhome' && count($url) == 1 && $method == 'POST') {
+                return (new Login)->loginCheck();
+        }
+
+        session_start();
+        if (!isset($_SESSION['user'])) {
+            App::redirect('');
+            die;
+        }
+
+        
         if ($url[0] == 'logout' && count($url) == 1 && $method == 'POST') {
                 return (new Login)->logout();
         }
 
-        if ($url[0] == '' && count($url) == 1 && $method == 'POST') {
-                return (new Login)->loginCheck();
-        }
 
-        if ($url[0] == 'home' && count($url) == 1 && $method == 'POST') {
+        if ($url[0] == 'home' && count($url) == 1 && $method == 'GET') {
             return (new Login)->home();
         }
 

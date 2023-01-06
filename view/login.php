@@ -6,7 +6,7 @@
                     Login to Bankas-2
                 </div>
                 <div class="card-body">
-                    <form action="<?= URL ?>home" method="post">
+                    <form action="<?= URL ?>tryhome" method="post">
                         <div class="mb-3">
                             <label class="form-label">Name</label>
                             <input type="text" name="name" class="form-control" placeholder="name">
