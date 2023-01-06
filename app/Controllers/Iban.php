@@ -23,18 +23,33 @@ class Iban
         return App::view('iban-list', compact('ibans', 'pageTitle', 'delete'));
     }
 
-    public function create()
+    public function create($result)
     {
         $pageTitle = 'Sukurti naują sąskaitą';
         $randomIban = 'LT'. rand(10, 99) . ' 7044 0' . rand(100, 999) . ' ' . rand(1000, 9999) . ' ' . rand(1000, 9999);
+        $result = $result;
 
-        return App::view('iban-create', compact('pageTitle', 'randomIban'));
+        return App::view('iban-create', compact('pageTitle', 'randomIban', 'result'));
     }
 
     public function save()
     {
-        (new FR('ibans'))->create($_POST);
-        return App::redirect('new_iban');
+        if (strlen($_POST['vardas']) < 4 || strlen($_POST['pavarde']) < 4) {
+            return App::redirect('new_iban/error');
+        } elseif ((new FR('ibans'))->validatePersonalId($_POST['asmens_kodas'])) {
+            return App::redirect('new_iban/error2');
+        } elseif (
+        !is_numeric($_POST['asmens_kodas']) ||
+        in_array($_POST['asmens_kodas'][0], [3, 4, 5, 6]) == 0 ||
+        in_array($_POST['asmens_kodas'][3], range(0, 1)) == 0 ||
+        in_array($_POST['asmens_kodas'][5], range(0, 3)) == 0 ||
+        strlen($_POST['asmens_kodas']) != 11
+        ) {
+            return App::redirect('new_iban/error3');
+        } else {
+            (new FR('ibans'))->create($_POST);
+            return App::redirect('new_iban/success');
+        }
     }
 
     public function edit_add($id, $result)
@@ -56,6 +71,13 @@ class Iban
     {
         $post = $_POST['pokytis'];
         if ((float) $post > 0 && (float) $post * 1000 % 10 === 0) {
+            if ((new FR('ibans'))->validateNegative($id, $post)) {
+                if ($type == 'add') {
+                    return App::redirect('iban_list/edit_add/'. $id . '/error2');
+                } else {
+                    return App::redirect('iban_list/edit_withdraw/'. $id . '/error2');
+                }
+            }
             (new FR('ibans'))->update($id, $type, $_POST);
             if ($type == 'add') {
                 return App::redirect('iban_list/edit_add/'. $id . '/success');
@@ -73,7 +95,7 @@ class Iban
 
     public function delete($id)
     {
-        if ((new FR('ibans'))->validate($id)) {
+        if ((new FR('ibans'))->validateZero($id)) {
             (new FR('ibans'))->delete($id);
             return App::redirect('iban_list/success');
         } else {

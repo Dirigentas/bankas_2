@@ -32,8 +32,13 @@ class App
             }
         }
 
-        if ($url[0] == 'new_iban' && count($url) == 1 && $method == 'GET') {
-            return (new Iban)->create();
+        if ($url[0] == 'new_iban' && $method == 'GET') {
+            if (count($url) == 1) {
+                return (new Iban)->create($url[1] ?? null);
+            }
+            if (count($url) == 2) {
+                return (new Iban)->create($url[1]);
+            }
         }
         
         if ($url[0] == 'new_iban' && $url[1] == 'save' && count($url) == 2 && $method == 'POST') {

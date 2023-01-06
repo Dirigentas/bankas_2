@@ -80,7 +80,7 @@ class FileReader implements DataBase {
         return $this->data;
     }
 
-    public function validate(int $userId)
+    public function validateZero(int $userId) : bool
     {
         foreach ($this->data as $data) {
             if ($userId == $data['ID']) {
@@ -89,4 +89,23 @@ class FileReader implements DataBase {
         }
     }
 
+    public function validateNegative(int $userId, int $pokytis) : bool
+    {
+        foreach ($this->data as $data) {
+            if ($userId == $data['ID']) {
+                return $data['likutis'] - $pokytis < 0;
+            }
+        }
+    }
+
+    public function validatePersonalId(int $PersonalId) : bool
+    {
+        foreach ($this->data as $data) {
+            if ($PersonalId == $data['asmens_kodas']) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
 }
