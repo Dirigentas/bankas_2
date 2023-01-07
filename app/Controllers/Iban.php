@@ -64,10 +64,8 @@ class Iban
     {
         $post = $_POST['pokytis'];
         if ((float) $post > 0 && (float) $post * 1000 % 10 === 0) {
-            if ((new FR('ibans'))->validateNegative($id, $post)) {
-                if ($type == 'add') {
-                    return App::redirect('iban_list/edit_add/'. $id . '/error2');
-                } else {
+            if ($type == 'withdraw') {
+                if ((new FR('ibans'))->validateNegative($id, $post)) {
                     return App::redirect('iban_list/edit_withdraw/'. $id . '/error2');
                 }
             }

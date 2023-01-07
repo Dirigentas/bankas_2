@@ -98,13 +98,13 @@ class FileReader implements DataBase {
         }
     }
 
-    public function validatePersonalId(int $PersonalId) : bool
+    public function validatePersonalId( $PersonalId) : bool
     {
         foreach ($this->data as $data) {
             if ($PersonalId == $data['asmens_kodas']) {
-                return false;
-            } else {
                 return true;
+            } else {
+                return false;
             }
         }
     }
