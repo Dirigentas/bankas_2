@@ -4,6 +4,7 @@ namespace Bankas_2;
 
 use Bankas_2\Controllers\Iban;
 use Bankas_2\Controllers\Login;
+use Bankas_2\Controllers\Currency_api;
 
 class App
 {
@@ -96,13 +97,19 @@ class App
             return (new Iban)->delete($url[2]);
         }
 
+        if ($url[0] == 'forex' && count($url) == 1 && $method == 'GET') {
+            return (new Currency_api)->allCurrencies();
+        }
+
         return '404 NOT FOUND '. $_SERVER['REQUEST_METHOD'];
     }
+
+
 
     public static function view(string $__name, array $data)
     {
         ob_start();
-
+        
         extract($data);
 
         require __DIR__ . '/../view/meta.php';
@@ -120,6 +127,8 @@ class App
 
         return $out;
     }
+
+
 
     public static function redirect($url)
     {
