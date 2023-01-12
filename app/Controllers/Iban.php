@@ -4,6 +4,7 @@ namespace Bankas_2\Controllers;
 
 use Bankas_2\App;
 use Bankas_2\DB\FileReader as FR;
+use Bankas_2\DB\SqlReader as SQL;
 
 class Iban
 {
@@ -60,21 +61,21 @@ class Iban
     public function edit_add($id, $result)
     {
         $pageTitle = 'Pridėti lėšas';
-        $iban = (new FR('ibans'))->show($id);
+        $iban = $this->storage('ibans')->show($id);
         $result = $result;
         return App::view('edit_add', compact('pageTitle', 'iban', 'result'));
     }
     public function edit_withdraw($id, $result)
     {
         $pageTitle = 'Nusiimti lėšas';
-        $iban = (new FR('ibans'))->show($id);
+        $iban = $this->storage('ibans')->show($id);
         $result = $result;
         return App::view('edit_withdraw', compact('pageTitle', 'iban', 'result'));
     }
 
     public function update($id, $type)
     {
-        if ($this->setting = 'file') {   
+        if ($this->setting == 'file') {   
             $post = $_POST['pokytis'];
             if ((float) $post > 0 && (float) $post * 1000 % 10 === 0) {
                 if ($type == 'withdraw') {
@@ -98,12 +99,17 @@ class Iban
         }
         else {
             $this->storage('ibans')->update($id, $type, $_POST);
+            if ($type == 'add') {
+                    return App::redirect('iban_list/edit_add/'. $id . '/success');
+                } else {
+                    return App::redirect('iban_list/edit_withdraw/'. $id . '/success');
+                }
         }
     }
 
     public function delete($id)
     {
-        if ($this->setting = 'file') {
+        if ($this->setting == 'file') {
             if ((new FR('ibans'))->validateZero($id)) {
                 (new FR('ibans'))->delete($id);
                 return App::redirect('iban_list/success');
@@ -113,6 +119,7 @@ class Iban
         }
         else {
             $this->storage('ibans')->delete($id);
+            return App::redirect('iban_list/success');
         }
     }
 

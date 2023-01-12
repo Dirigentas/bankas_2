@@ -1,5 +1,5 @@
 <?php
-namespace Front\DB;
+namespace Bankas_2\DB;
 
 use App\DB\DataBase;
 use PDO;
@@ -12,7 +12,7 @@ class SqlReader implements DataBase {
     public function __construct($name)
     {
         $host = '127.0.0.1';
-        $db   = 'miskas';
+        $db   = 'bankas';
         $user = 'root';
         $pass = '';
         $charset = 'utf8mb4';
@@ -36,27 +36,38 @@ class SqlReader implements DataBase {
         $sql = "
             INSERT INTO " . $this->name . "
             (". $col .")
-            VALUES(?, ?, ?)
+            VALUES(?, ?, ?, ?, ?)
         ";
 
-        // die($sql);
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(array_values($userData));
 
     }
 
-    public function update(int $userId, array $userData) : void
+    public function update(int $userId, string $type, array $userData) : void
     {
-        $set =  array_map(fn($s) => $s . ' = ?', array_flip($userData));
-        $col = implode(',', $set); 
+        // $set =  array_map(fn($s) => $s . ' = ?', array_flip($userData));
+        // $col = implode(',', $set); 
         
+        // $sql = "
+        //     UPDATE " . $this->name . "
+        //     SET " . $col . "
+        //     WHERE id = ?
+        // ";
+        // $stmt = $this->pdo->prepare($sql);
+        // $stmt->execute([...array_values($userData), $userId]);
+
         $sql = "
             UPDATE " . $this->name . "
-            SET " . $col . "
+            SET likutis = ?
             WHERE id = ?
         ";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([...array_values($userData), $userId]);
+        if ($type == 'add') {
+            $stmt->execute([($this->show($userId))['likutis'] + $userData['pokytis'], $userId]);
+        } else {
+            $stmt->execute([($this->show($userId))['likutis'] - $userData['pokytis'], $userId]);
+        }
     }
 
     public function delete(int $userId) : void
