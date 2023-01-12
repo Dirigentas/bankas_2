@@ -7,10 +7,22 @@ use Bankas_2\DB\FileReader as FR;
 
 class Iban
 {
+    private $setting = 'sql'; // sql arba file
+
+    private function storage($name)
+    {
+        if ($this->setting == 'file') {
+             return new FR('ibans');
+        }
+        if ($this->setting == 'sql') {
+            return new SQL('ibans');
+       }
+    }
+
     public function index($status)
     {
         $pageTitle = 'Sąskaitų Sąrašas';
-        $ibans = (new FR('ibans'))->showAll();
+        $ibans = $this->storage('grybai')->showAll();
         $delete = $status;
 
         return App::view('iban-list', compact('ibans', 'pageTitle', 'delete'));
@@ -40,7 +52,7 @@ class Iban
         ) {
             return App::redirect('new_iban/error3');
         } else {
-            (new FR('ibans'))->create($_POST);
+            $this->storage('ibans')->create($_POST);
             return App::redirect('new_iban/success');
         }
     }
@@ -62,35 +74,45 @@ class Iban
 
     public function update($id, $type)
     {
-        $post = $_POST['pokytis'];
-        if ((float) $post > 0 && (float) $post * 1000 % 10 === 0) {
-            if ($type == 'withdraw') {
-                if ((new FR('ibans'))->validateNegative($id, $post)) {
-                    return App::redirect('iban_list/edit_withdraw/'. $id . '/error2');
+        if ($this->setting = 'file') {   
+            $post = $_POST['pokytis'];
+            if ((float) $post > 0 && (float) $post * 1000 % 10 === 0) {
+                if ($type == 'withdraw') {
+                    if ((new FR('ibans'))->validateNegative($id, $post)) {
+                        return App::redirect('iban_list/edit_withdraw/'. $id . '/error2');
+                    }
+                }
+                (new FR('ibans'))->update($id, $type, $_POST);
+                if ($type == 'add') {
+                    return App::redirect('iban_list/edit_add/'. $id . '/success');
+                } else {
+                    return App::redirect('iban_list/edit_withdraw/'. $id . '/success');
+                }
+            } else {
+                if ($type === 'add') {
+                    return App::redirect('iban_list/edit_add/'. $id . '/error');
+                } else {
+                    return App::redirect('iban_list/edit_withdraw/'. $id . '/error');
                 }
             }
-            (new FR('ibans'))->update($id, $type, $_POST);
-            if ($type == 'add') {
-                return App::redirect('iban_list/edit_add/'. $id . '/success');
-            } else {
-                return App::redirect('iban_list/edit_withdraw/'. $id . '/success');
-            }
-        } else {
-            if ($type === 'add') {
-                return App::redirect('iban_list/edit_add/'. $id . '/error');
-            } else {
-                return App::redirect('iban_list/edit_withdraw/'. $id . '/error');
-            }
+        }
+        else {
+            $this->storage('ibans')->update($id, $type, $_POST);
         }
     }
 
     public function delete($id)
     {
-        if ((new FR('ibans'))->validateZero($id)) {
-            (new FR('ibans'))->delete($id);
-            return App::redirect('iban_list/success');
-        } else {
-            return App::redirect('iban_list/error');
+        if ($this->setting = 'file') {
+            if ((new FR('ibans'))->validateZero($id)) {
+                (new FR('ibans'))->delete($id);
+                return App::redirect('iban_list/success');
+            } else {
+                return App::redirect('iban_list/error');
+            }
+        }
+        else {
+            $this->storage('ibans')->delete($id);
         }
     }
 
