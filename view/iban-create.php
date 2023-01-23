@@ -21,7 +21,7 @@
     </form>
 </div>
 
-<h6 <?= $result == 'success' ? 'class="alert alert-success" role="alert">Sąskaita pridėta sėkmingai' : '' ?></h6>
-<h6 <?= $result == 'error' ? 'class="alert alert-danger" role="alert">Ir vardą, ir pavardę turi sudaryti bent 4 simboliai' : '' ?></h6>
-<h6 <?= $result == 'error2' ? 'class="alert alert-danger" role="alert">Klientas su tokiu asmens kodu jau egzistuoja' : '' ?></h6>
-<h6 <?= $result == 'error3' ? 'class="alert alert-danger" role="alert">Netinkamas asmens kodo formatas' : '' ?></h6>
+<h6 <?= $result == 'success' ? 'class="alert alert-success" role="alert">Sąskaita pridėta sėkmingai' : '' ?>></h6>
+<h6 <?= $result == 'error' ? 'class="alert alert-danger" role="alert">Ir vardą, ir pavardę turi sudaryti bent 4 simboliai' : '' ?>></h6>
+<h6 <?= $result == 'error2' ? 'class="alert alert-danger" role="alert">Klientas su tokiu asmens kodu jau egzistuoja' : '' ?>></h6>
+<h6 <?= $result == 'error3' ? 'class="alert alert-danger" role="alert">Netinkamas asmens kodo formatas' : '' ?>></h6>

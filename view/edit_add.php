@@ -22,5 +22,5 @@
     </form>
 </div>
 
-<h6 <?= $result == 'success' ? 'class="alert alert-success" role="alert">Lėšos pridėtos sėkmingai' : '' ?></h6>
-<h6 <?= $result == 'error' ? 'class="alert alert-danger" role="alert">Įnešama suma turi būti didesnė už 0 eur, formatas turi būti iki 2 skaičių po kablelio' : '' ?></h6>
+<h6 <?= $result == 'success' ? 'class="alert alert-success" role="alert">Lėšos pridėtos sėkmingai' : '' ?>></h6>
+<h6 <?= $result == 'error' ? 'class="alert alert-danger" role="alert">Įnešama suma turi būti didesnė už 0 eur, formatas turi būti iki 2 skaičių po kablelio' : '' ?>></h6>

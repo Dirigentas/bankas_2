@@ -19,5 +19,5 @@
     </div>
 </div>
 
-<h6 <?= $delete == 'success' ? 'class="alert alert-success" role="alert">Sąskaita ištrinta' : '' ?></h6>
-<h6 <?= $delete == 'error' ? 'class="alert alert-danger" role="alert">Sąskaita nėra tuščia, ištrinti negalima' : '' ?></h6>
+<h6 <?= $delete == 'success' ? 'class="alert alert-success" role="alert">Sąskaita ištrinta' : '' ?>></h6>
+<h6 <?= $delete == 'error' ? 'class="alert alert-danger" role="alert">Sąskaita nėra tuščia, ištrinti negalima' : '' ?>></h6>
